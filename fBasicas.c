@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "fBasicas.h"
 
 void addPessoa(void *pBuffer, int *menu, int *c, int *tp) {
@@ -17,14 +18,14 @@ void addPessoa(void *pBuffer, int *menu, int *c, int *tp) {
 	    tp = ++c;
         p = (struct pessoas *) ++tp + (*tp * sizeof(struct pessoas));
     }
-    printf("Digite o nome:");
+    printf("Digite o nome: ");
     scanf("%[^\n]s", p->nome);
     setbuf(stdin, NULL);
-    printf("Digite a idade:");
-    scanf("%d", p->idade);
+    printf("Digite a idade: ");
+    scanf("%d", &p->idade);
     setbuf(stdin, NULL);
-    printf("Digite o telefone:");
-    scanf("%d", p->tel);
+    printf("Digite o telefone: ");
+    scanf("%d", &p->tel);
     setbuf(stdin, NULL);
 
     p = (struct pessoas *) ++tp;
@@ -42,25 +43,27 @@ void buscarPessoa(void *pBuffer, int *menu, int *c, int *tp, struct pessoas *p) 
     c = ++menu;
 	tp = ++c;
     p = (struct pessoas *) ++tp;
-    auxP = p + (*tp * sizeof(struct pessoas));
-
+    auxP = (*tp * sizeof(struct pessoas))+p;
+    *menu = 0;
+   
     printf("\t1 - Buscar por nome\n\t2 - Buscar por idade\n\t3 - Buscar por telefone\n");
     scanf("%d", menu);
+    setbuf(stdin, NULL);
 
     switch (*menu) {
         case 1:
-            printf("Digite o nome:");
+            printf("Digite o nome: ");
             scanf("%[^\n]s", auxP->nome);
             setbuf(stdin, NULL);
             for(*c = 0;*c < *tp; p++) {
-                if(auxP->nome == p->nome) {
+                if(strcmp(auxP->nome, p->nome) == 0) {
                     printf("\tNome: %s\n\tIdade: %d\n\tTelefone: %d\n", p->nome, p->idade, p->tel);
                 }
             }
             break;
         case 2:
-            printf("Digite a idade:");
-            scanf("%d", auxP->idade);
+            printf("Digite a idade: ");
+            scanf("%d", &auxP->idade);
             setbuf(stdin, NULL);
             for(*c = 0;*c < *tp; p++) {
                 if(auxP->idade == p->idade) {
@@ -69,8 +72,8 @@ void buscarPessoa(void *pBuffer, int *menu, int *c, int *tp, struct pessoas *p) 
             }
             break;
         case 3:
-            printf("Digite o telefone:");
-            scanf("%d", auxP->tel);
+            printf("Digite o telefone: ");
+            scanf("%d", &auxP->tel);
             setbuf(stdin, NULL);
             for(*c = 0;*c < *tp; p++) {
                 if(auxP->tel == p->tel) {

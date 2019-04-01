@@ -16,7 +16,7 @@ int main() {
 
     while(*menu != 4) {
 		printf("##########MENU##########\n");
-		printf("\t1 - Adicionar pessoa\n\t2 - Remover pessoa\n\t3 - Listar agenda\n\t4 - Sair\n");
+		printf("\t1 - Adicionar pessoa\n\t2 - Remover pessoa\n\t3 - Buscar pessoa\n\t4 - Sair\n");
 		scanf("%d", menu);
         setbuf(stdin, NULL);
 		switch(*menu) {
