@@ -14,7 +14,7 @@ int main() {
     p = (struct pessoas *) tp;
     *tp = 0;
 
-    while(*menu != 4) {
+    while(*menu != 5) {
 		printf("##########MENU##########\n");
 		printf("\t1 - Adicionar pessoa\n\t2 - Remover pessoa\n\t3 - Buscar pessoa\n\t4 - Sair\n");
 		scanf("%d", menu);
@@ -30,7 +30,13 @@ int main() {
 				buscarPessoa(pBuffer, menu, c, tp, p);
 				break;
 			case 4:
+				//listarAgenda(pBuffer, menu, c, tp, p);
 				break;
+			case 6:
+				free(pBuffer);
+				break;
+			default:
+				printf("Opção inválida!");
 		}
 	}
 	return 0;

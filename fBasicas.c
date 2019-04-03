@@ -5,19 +5,14 @@
 
 void addPessoa(void *pBuffer, int *menu, int *c, int *tp) {
     struct pessoas *p;
-    if(*tp == 0){
-        pBuffer = (void *) realloc(pBuffer, sizeof(*menu) + sizeof(*c) + sizeof(*tp) + sizeof(struct pessoas));
-        menu = pBuffer;
-	    c = ++menu;
-	    tp = ++c;
-        p = (struct pessoas *) ++tp;
-    } else {
-        pBuffer = (void *) realloc(pBuffer, sizeof(*menu) + sizeof(*c) + sizeof(*tp) + (*tp + 1) * sizeof(struct pessoas));
-        menu = pBuffer;
-	    c = ++menu;
-	    tp = ++c;
-        p = (struct pessoas *) ++tp + (*tp * sizeof(struct pessoas));
-    }
+    *tp += 1;
+    
+    pBuffer = (void *) realloc(pBuffer, sizeof(*menu) + sizeof(*c) + sizeof(*tp) + (*tp) * sizeof(struct pessoas));
+    menu = pBuffer;
+	c = ++menu;
+	tp = ++c;
+    p = (struct pessoas *) ++tp + ((*tp-1) * sizeof(struct pessoas));
+    
     printf("Digite o nome: ");
     scanf("%[^\n]s", p->nome);
     setbuf(stdin, NULL);
@@ -29,12 +24,11 @@ void addPessoa(void *pBuffer, int *menu, int *c, int *tp) {
     setbuf(stdin, NULL);
 
     p = (struct pessoas *) ++tp;
-    *tp +=1;
 }
 
-void rmvPessoa(void *pBuffer, int *menu, int *c, int *tp, struct pessoas *p) {
+/*void rmvPessoa(void *pBuffer, int *menu, int *c, int *tp, struct pessoas *p) {
 
-}
+}*/
 
 void buscarPessoa(void *pBuffer, int *menu, int *c, int *tp, struct pessoas *p) {
     struct pessoas *auxP;
@@ -89,3 +83,7 @@ void buscarPessoa(void *pBuffer, int *menu, int *c, int *tp, struct pessoas *p) 
 	tp = ++c;
     p = (struct pessoas *) ++tp;
 }
+
+/*void listarAgenda(void *pBuffer, int *menu, int *c, int *tp, struct pessoas *p) {
+	
+}/*
